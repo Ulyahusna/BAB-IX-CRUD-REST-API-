@@ -1,0 +1,2 @@
+FLASK_APP=restflask.app
+FLASK_DEBUG=True
