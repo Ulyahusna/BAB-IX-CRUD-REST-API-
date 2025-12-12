@@ -1,2 +1,6 @@
-FLASK_APP=restflask.app
-FLASK_DEBUG=True
+FLASK_APP=main.py
+DB_HOST=localhost
+DB_DATABASE=belajar_migrasi
+DB_USERNAME=root
+DB_PASSWORD=
+#FLASK_DEBUG=True 

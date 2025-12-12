@@ -1,19 +1,23 @@
-from app import app, db 
-from flask import jsonify, render_template
+from restflask.app import app
+from .controller.UserController import UserController
+from flask import request
 
-@app.route('/')
-@app.route('/api/users')
-def api_users():
-    cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM users")
-    data = cursor.fetchall()
-    cursor.close()
-    return jsonify(data)
 
-@app.route('/tabel')
-def tampil_tabel():
-    cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM users")
-    data = cursor.fetchall()
-    cursor.close()
-    return render_template('table.html', data=data)
+@app.route('/users', methods=['POST', 'GET'])
+def users():
+    if request.method == 'GET':
+        return UserController.index()
+    else:
+        return UserController.store()
+
+@app.route('/users/<id>', methods=['PUT', 'GET', 'DELETE'])
+def userDetail(id):
+    if request.method == 'GET':
+        return UserController.show(id)
+    elif request.method == 'PUT':
+        return UserController.update(id)
+    elif request.method == 'DELETE':
+        return UserController.delete(id)
+
+    print(id)
+    return UserController.show(id)

@@ -1,13 +1,12 @@
 from flask import Flask
-import mysql.connector as mysql
+from config import Config
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
-app= Flask(__name__)
+app = Flask(__name__)
+app.config.from_object(Config)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
-db = mysql.connect(
-    host="localhost",       # ganti jika server database berbeda
-    user="root",            # username MySQL kamu
-    password="",            # isi password MySQL kamu
-    database="flaskmysql" # nama database kamu
-)
-
-from app import routes
+from restflask.app.models import user, todo
+from restflask.app import routes
